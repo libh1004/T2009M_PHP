@@ -11,7 +11,7 @@
 
 </head>
 <body >
-    <?php
+    <?php include ("category.php");
         $category = [];
         $category[] = [
             "id" => 1,
