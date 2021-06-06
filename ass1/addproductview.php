@@ -11,17 +11,23 @@
 
 </head>
 <body>
+<?php
+    $category_id = $_GET["category_id"];
+?>
+
 <div class="container">
     <div class="content">
         <h3>Add new product</h3>
-        <button type="button" style="margin-bottom:30px"><a href="listproduct.php" ><< Back</a></button>
-        <form action="submitproduct.php" method="post">
+        <button type="button" style="margin-bottom:30px"><a href="products.php"><< Back</a></button>
+        <form action="addprobackend.php" method="post">
             <div class="input-info" style="width: 70%;padding: 40px;margin-left: 90px">
-                <input type="text" name="name" placeholder="Name" style="width: 45%;height: 45px">
-                <input type="text" name="price" placeholder="Price" style="width: 45%;height: 45px;margin-left: 30px"><br>
-            </div>
 
-            <input type="submit" style="float: right;margin-right: 45px">
+                <input name="category_id" value="<?php echo $category_id;?>" type="hidden"/>
+                <input name="name" type="text" placeholder="Name" style="width: 45%;height: 45px"/>
+                <input name="price" type="number" placeholder="Price" style="width: 45%;height: 45px;margin-left: 30px"/><br>
+
+            </div>
+            <button type="submit" style="float: right;margin-right: 45px">Submit</button>
         </form>
         <?php echo "<br/>"?>
 

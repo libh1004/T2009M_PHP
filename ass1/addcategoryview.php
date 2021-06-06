@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,17 +12,17 @@
 
 </head>
 <body>
+
 <div class="container">
     <div class="content">
         <h3>Add new category</h3>
-        <button type="button" style="margin-bottom:30px"><a href="category.php" ><< Back</a></button>
-        <form action="submitcategory.php" method="post">
+        <button type="button" style="margin-bottom:30px"><a href="categories.php" ><< Back</a></button>
+        <form action="addcatebackend.php" method="post">
             <div class="input-info" style="width: 70%;padding: 40px;margin-left: 90px">
                 <input type="text" name="name" placeholder="Name" style="width: 45%;height: 45px">
-                <input type="text" name="price" placeholder="Price" style="width: 45%;height: 45px;margin-left: 30px"><br>
+                <input type="text" name="description" placeholder="Description" style="width: 45%;height: 45px;margin-left: 30px"><br>
             </div>
-
-            <input type="submit" style="float: right;margin-right: 45px">
+            <button type="submit" style="float: right;margin-right: 45px">Submit</button>
         </form>
         <?php echo "<br/>"?>
 
