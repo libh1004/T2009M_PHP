@@ -1,3 +1,4 @@
+<?php include_once "database.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,27 +11,33 @@
     <title>Edit category</title>
 </head>
 <body>
-<div class="container">
-    <div class="content"">
-        <?php
-        $category[] = [
-            "id" => 2,
-            "name" => "Đồng hồ Apple watch",
-            "price" => 500
-        ];
-        ?>
-        <h3>Edit category</h3>
-        <button type="button" style="margin-bottom:30px"><a href="category.php" ><< Back</a></button>
-        <div class="edit-infocategory" style="padding: 40px;margin-left: 90px;display: flex">
-            <p style="border: 1px solid black;width: 45%;height: 45px;padding: 9px"><?php foreach ($category as $item){
-                    echo $item["name"];
-                }?></p>
-            <p style="border: 1px solid black;width: 45%;height: 45px;margin-left: 30px;padding: 9px"><?php foreach ($category as $item){
-                    echo $item["price"];
-                }?></p>
-        </div>
+<?php
+    $id = $_GET["id"];
+    $conn = connectDB();
+    $sql_txt = "select * from categories where id = $id";
+    $rs = $conn->query($sql_txt);
+    $loai = null;
+    if($rs->num_rows>0){
+        while($row = $rs->fetch_assoc()){
+            $loai=$row;
+        }
+    }
+    if($loai == null)
+        header ("Location: categories.php");
 
-        <button type="button" style="float: right;margin-right: 45px">Update</button>
+?>
+<div class="container">
+    <div class="content">
+        <h3>Edit category</h3>
+        <button type="button" style="margin-bottom:30px"><a href="categories.php" ><< Back</a></button>
+        <form action="updatecategory.php" method="post">
+            <input name="id" value="<?php echo $loai["id"];?>" type="hidden"/>
+            <input name="name" type="text" value="<?php echo $loai["name"];?>"/>
+            <input name="description" type="text" value="<?php echo $loai["description"];?>"/>
+            <?php echo "</br>"?>
+            <button type="submit" style="float: right;margin-right: 45px">Submit</button>
+        </form>
+
     </div>
 
 </div>

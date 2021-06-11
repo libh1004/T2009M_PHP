@@ -1,3 +1,4 @@
+<?php include_once "database.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,27 +11,32 @@
     <title>Edit product</title>
 </head>
 <body>
+<?php
+    $product_id = $_GET["product_id"];
+    $conn = connectDB();
+    $sql_txt = "select * from products where product_id = $product_id";
+    $rs = $conn->query($sql_txt);
+    $sp = null;
+    if($rs->num_rows>0){
+        while($row= $rs->fetch_assoc()){
+            $sp = $row;
+        }
+    }
+    if($sp==null)
+        header ("Location: products.php");
+?>
 <div class="container">
     <div class="content">
-        <?php
-        $list[] = [
-            "id" => 1,
-            "name" => "Sản phẩm 1",
-            "price" => "1200"
-        ];
-        ?>
-        <h3>Edit product</h3>
-        <button type="button" style="margin-bottom:30px"><a href="listproduct.php" ><< Back</a></button>
-        <div class="edit-infoproduct" style="padding: 40px;margin-left: 90px;display: flex">
-            <p style="border: 1px solid black;width: 45%;height: 45px;padding: 9px"><?php foreach ($list as $item){
-                    echo $item["name"];
-                }?></p>
-            <p style="border: 1px solid black;width: 45%;height: 45px;margin-left: 30px;padding: 9px"><?php foreach ($list as $item){
-                    echo $item["price"];
-                }?></p>
-        </div>
+    <h3>Edit product</h3>
+    <form action="updateproduct.php" method="post">
 
-        <button type="button" style="float: right;margin-right: 45px">Update</button>
-    </div>
-
+        <input name="name" type="text" value="<?php echo $sp["name"];?>">
+        <input name="price" type="number" value="<?php echo $sp["price"];?>">
+        <input name="product_id" type="number" value="<?php echo $sp["product_id"];?>" >
+        <input name="category_id"  value="<?php echo $sp["category_id"];?>" type="hidden">
+        <button type="submit" style="float: right;margin-right: 45px">Submit</button>
+    </form>
 </div>
+</div>
+</body>
+</html>

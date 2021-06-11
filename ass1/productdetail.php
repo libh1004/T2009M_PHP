@@ -11,29 +11,13 @@
 </head>
 <body>
     <?php
-        $product_id = $_GET["product_id"];
+        $category_id = $_GET["category_id"];
+       $conn = connectDB();
 
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "ass2_php";
-
-        $conn = new mysqli($servername,$username,$password,$dbname);
-
-        if($conn->connect_errno){
-            die("connect error...");
-        }
-
-        echo "Connect successfully";
-        $sql_txt = "select * from products where product_id = $product_id";
-        $rs = $conn->query($sql_txt);
-        $sp = null;
-        if($rs->num_rows > 0){
-            while($row = $rs->fetch_assoc()){
-                $sp = $row;
-            }
-        }
-        if($sp == null) header("Location: products.php");
+        $sql_txt = "select * from products where category_id = $category_id";
+        $listproduct = queryDB($sql_txt);
+        if(count($listproduct)==0) header("Location: products.php");
+        $sp = $listproduct[0];
     ?>
 
 <div class="container">

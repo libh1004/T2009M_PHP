@@ -1,3 +1,4 @@
+<?php include_once "database.php"?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,17 +13,7 @@
 </head>
 <body >
     <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "ass2_php";
-
-        $conn = new mysqli($servername,$username,$password,$dbname);
-
-        if($conn->connect_errno){
-            die("connect error...");
-        }
-        echo "Connect successfully";
+        $conn = connectDB();
         $sql_txt = "select * from categories";
         $rs = $conn->query($sql_txt);
         $dsl =[];
@@ -38,14 +29,16 @@
         <h3>List categories</h3>
         <div class="content">
 
-            <button type="button" style="margin-bottom: 30px;margin-left: 125px" ><a href="addcategoryview.php">Add</a> </button>
-            <button type="button" style="margin-bottom: 30px;margin-left: 10px"  ><a href="editcategory.php">Edit</a> </button>
+            <button type="button" style="margin-bottom: 30px;margin-left: 125px" ><a href="addcateview.php">Add</a> </button>
 
             <table style="width: 70%;margin-left: 125px">
                 <tr>
                     <th style="text-align: center">Id</th>
                     <th style="text-align: center">Name</th>
                     <th style="text-align: center">Description</th>
+                    <th style="text-align: center">Edit</th>
+                    <th style="text-align: center">Delete</th>
+<!--                    <th style="text-align: center">Add to cart</th>-->
 
                 </tr>
                 <?php foreach ($dsl as $item){?>
@@ -53,7 +46,9 @@
                         <td><?php echo $item["id"];?></td>
                         <td><a href="categorydetail.php?id=<?php echo $item["id"];?>"> <?php echo $item["name"];?></a></td>
                         <td><?php echo $item["description"];?></td>
-
+                        <td><a href="editcategory.php?id=<?php echo $item["id"];?>">Edit</a></td>
+                        <td><a href="deletecategory.php?id=<?php echo $item["id"];?>">Delete</a></td>
+<!--                        <td><a href="products.php?category_id=--><?php //echo $item["id"];?><!--">Add to cart</td>-->
                     </tr>
                 <?php }?>
             </table>
